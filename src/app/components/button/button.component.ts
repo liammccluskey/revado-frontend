@@ -1,13 +1,19 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output} from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+export type ButtonColor = 'solid' | 'clear';
+export type ButtonSize = 'small' | 'medium' | 'large';
 
 @Component({
   selector: 'app-button',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
   title = input.required<string>();
+  color = input<ButtonColor>();
+  size = input<ButtonSize>();
   onClick = output<void>();
 
   handleClick() {

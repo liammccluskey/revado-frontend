@@ -1,0 +1,41 @@
+.text-button {
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.size-small {
+    padding: 5px 10px;
+    font-size: 13px;
+    border-radius: 16px;
+    height: 30px;
+}
+
+.size-medium {
+    padding: 7px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+.size-large {
+    padding: 10px 25px;
+    font-size: 17px;
+    border-radius: 24px;
+
+}
+
+.color-solid {
+  background-color: var(--tint);
+  color: var(--bgc-light);
+  border: 1px solid var(--tint);
+}
+
+.color-clear {
+  background-color: var(--bgc-light);
+  color: var(--tint);
+  border: 1px solid var(--border-color);
+}
