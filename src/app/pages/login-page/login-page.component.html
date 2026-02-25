@@ -1,7 +1,32 @@
-<p>login-page works!</p>
-<app-button 
-    [title]="'Login'" 
-    [size]="'medium'"
-    [color]="'solid'"
-    (onClick)="onClickLogin()"
-/>
+<app-page-container>
+    <app-main-header />
+    <app-body-container>
+        <div class="login-card float-container">
+            <h2 class="title-text">Login</h2>
+            <label>Email</label>
+            <input 
+                type="email" 
+                [value]="email()" 
+                (input)="onChangeEmail($any($event.target)?.value)"
+            />
+            <br />
+            <label>Password</label>
+            <input 
+                type="password" 
+                [value]="password()" 
+                (input)="onChangePassword($any($event.target)?.value)"
+            />
+            <br />
+            @if (loginError()) {
+                <p class="error-text">Error: {{loginError()}}</p>
+            }
+            <br />
+            <app-button
+                [title]="'Login'"
+                [size]="'medium'"
+                [color]="'solid'"
+                (onClick)="onClickLogin()"
+            />
+        </div>
+    </app-body-container>
+</app-page-container>

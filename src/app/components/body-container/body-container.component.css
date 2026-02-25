@@ -1,0 +1,12 @@
+.body-container {
+    background-color: clear;
+    padding: 40px var(--ps-body);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100vw;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: scroll;
+}

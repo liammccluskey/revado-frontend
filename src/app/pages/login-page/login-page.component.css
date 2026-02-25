@@ -1,0 +1,17 @@
+.login-card {
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    align-self: center;
+}
+
+.title-text {
+    margin-bottom: 20px;
+}
+
+.error-text {
+    color: var(--error);
+}

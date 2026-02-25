@@ -11,7 +11,7 @@ export type ButtonSize = 'small' | 'medium' | 'large';
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
-  title = input.required<string>();
+  title = input<string>();
   color = input<ButtonColor>();
   size = input<ButtonSize>();
   onClick = output<void>();

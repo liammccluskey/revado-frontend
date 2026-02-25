@@ -1,0 +1,27 @@
+<div class="main-header">
+    <h3 class="page-title">Revado</h3>
+    @if (isLoggedIn()) {
+        <app-button
+            [title]="'Logout'"
+            [size]="'medium'"
+            [color]="'clear'"
+            (click)="onClickLogout()"
+        />
+    } @else {
+        <div class="buttons-container">
+            <app-button
+                [title]="'Login'"
+                [size]="'medium'"
+                [color]="'solid'"
+                (click)="onClickLogin()"
+                [ngStyle]="{marginRight: '15px'}"
+            />
+            <app-button
+                [title]="'Register'"
+                [size]="'medium'"
+                [color]="'clear'"
+                (click)="onClickRegister()"
+            />
+        </div>
+    }
+</div>

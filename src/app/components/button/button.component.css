@@ -6,6 +6,7 @@
     border-radius: 5px;
     box-sizing: border-box;
     white-space: nowrap;
+    font-weight: 600;
 }
 
 .size-small {
@@ -38,4 +39,16 @@
   background-color: var(--bgc-light);
   color: var(--tint);
   border: 1px solid var(--border-color);
+}
+
+.text-button:hover {
+    transition: 0.3s
+}
+
+.text-button.color-solid:hover {
+    filter: brightness(80%);
+}
+
+.text-button.color-clear:hover{
+    background-color: var(--tint-translucent);
 }
