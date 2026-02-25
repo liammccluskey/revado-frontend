@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { PageContainerComponent } from '../../components/page-container/page-container.component';
 import { BodyContainerComponent } from '../../components/body-container/body-container.component';
@@ -31,11 +31,9 @@ export class LoginPageComponent {
     this.auth.login(data)
       .subscribe({
         next: user => {
-          console.log(user)
           this.router.navigate(['/home']);
         },
         error: error => {
-          console.log(error)
           this.loginError.set(error.error.message);
         }
       });

@@ -18,13 +18,6 @@ export class MainHeaderComponent {
   // Utils
 
   isLoggedIn() {
-    if (this.auth.getIsLoggedIn()) {
-
-    console.log('mainheader: is logged in ')
-    } else {
-
-    console.log('mainheader: is not logged in ')
-    }
     return this.auth.getIsLoggedIn();
   }
 
