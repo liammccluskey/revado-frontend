@@ -19,7 +19,7 @@ export interface LoginResponse {
 }
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
 }
@@ -84,5 +84,13 @@ export class AuthService {
 
   getIsLoggedIn(): boolean {
     return !!this.token() && !!this.currentUser();
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUser();
+  }
+
+  getCurrentUserId(): number | undefined {
+    return this.currentUser()?.id;
   }
 }
