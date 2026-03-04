@@ -1,6 +1,15 @@
 <app-page-container>
     <app-main-header />
     <app-body-container>
+        <div class="header-container">
+            <h1 class="">Todos</h1>
+            <app-button
+                [title]="'+ Create todo'"
+                [color]="'solid'"
+                [size]="'medium'"
+                (onClick)="onClickCreateTodo()"
+            />
+        </div>
         
     </app-body-container>
 </app-page-container>

@@ -1,0 +1,27 @@
+<div class="todo-container">
+    <div class="todo-header">
+        <div class="header-right">
+            <input 
+                type="checkbox" 
+                [checked]="completed()"
+                (change)="completed.set($any($event.target).checked)"
+            />
+            <h3>{{todo().title}}</h3>
+        </div>
+        <div class="header-left">
+            <app-button
+                [title]="'Edit'"
+                [color]="'clear'"
+                [size]="'small'"
+                (onClick)="onClickEditTodo()"
+            />
+            <app-button
+                [title]="'Delete'"
+                [color]="'clear'"
+                [size]="'small'"
+                (onClick)="onClickDeleteTodo()"
+            />
+        </div>
+
+    </div>
+</div>

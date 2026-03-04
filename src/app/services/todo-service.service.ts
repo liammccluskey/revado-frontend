@@ -123,6 +123,9 @@ export class TodoService {
         console.log('Error posting subtask');
         console.log(err);
         return throwError(() => err);
+      }),
+      finalize(() => {
+        this.loadingPostTodo.set(false)
       })
     )
   }
