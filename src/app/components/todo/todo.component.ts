@@ -1,5 +1,5 @@
-import { Component, inject, input, OnInit, signal, computed } from '@angular/core';
-import { Todo, TodoRequest, TodoService } from '../../services/todo-service.service';
+import { Component, inject, input, signal, OnInit } from '@angular/core';
+import { Todo, TodoService } from '../../services/todo-service.service';
 import { ButtonComponent } from '../button/button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,34 +15,33 @@ export class TodoComponent implements OnInit {
   todoService = inject(TodoService);
 
   editingTodo = signal<boolean>(false);
-  expanded = signal<boolean>(false);
-  title = signal<string>("");
-  description = signal<string>("");
-  completed = signal<boolean>(false);
+  todoTitle = "";
+  todoDescription = "";
+  completed = false;
 
   addingSubtask = signal<boolean>(false);
   subtaskTitle = "";
+
   editingSubtaskTitle = "";
   editingSubtaskId: number | null = null;
 
-  ngOnInit(): void {
-    const {title, description, completed} = this.todo();
-    this.title.set(title)
-    this.description.set(description)
-    this.completed.set(completed)
+  ngOnInit() {
+    const {completed} = this.todo();
+    this.completed = completed;
   }
 
   // Todos
 
   onClickEditTodo() {
     this.editingTodo.set(true)
+    this.todoTitle = this.todo().title;
+    this.todoDescription = this.todo().description;
   }
 
   onClickSaveEdits() {
     const modifiedTodo = {
-      title: this.title(),
-      description: this.description(),
-      completed: this.completed()
+      title: this.todoTitle,
+      description: this.todoDescription
     }
     this.todoService.patchTodo(modifiedTodo, this.todo().id)
       .subscribe({
@@ -50,6 +49,15 @@ export class TodoComponent implements OnInit {
           this.editingTodo.set(false)
         }
       })
+  }
+
+  onClickCancelEditTodo() {
+    this.editingTodo.set(false)
+  }
+
+  onChangeTodoCompleted(completed: boolean) {
+    this.completed = completed;
+    this.todoService.patchTodo({completed}, this.todo().id).subscribe();
   }
 
   onClickDeleteTodo() {
@@ -78,6 +86,11 @@ export class TodoComponent implements OnInit {
 
   onClickEditSubtask(subtaskId: number) {
     this.editingSubtaskId = subtaskId
+  
+    const subtask = this.todo().subtasks.find(subtask => subtask.id == subtaskId)
+    if (subtask) {
+      this.editingSubtaskTitle = subtask.description
+    }
   }
 
   onClickDeleteSubtask(subtaskId: number) {
@@ -85,6 +98,27 @@ export class TodoComponent implements OnInit {
   }
 
   onClickSaveSubtaskEdits() {
+    const subtask = this.todo()
+      .subtasks
+      .find(subtask => subtask.id == this.editingSubtaskId)
 
+    if (subtask && this.editingSubtaskId) {
+      const subtaskRequest = {
+        description: this.editingSubtaskTitle, completed: subtask.completed
+      }
+      this.todoService.patchSubtask(subtaskRequest, this.editingSubtaskId).subscribe({
+        next: todo => {
+          this.editingSubtaskId = null
+        }
+      })
+    }
+  }
+
+  onChangeSubtaskCompleted(subtaskId: number, completed: boolean) {
+    this.todoService.patchSubtask({completed}, subtaskId).subscribe();
+  }
+
+  onClickCancelEditSubtask() {
+    this.editingSubtaskId = null
   }
 }

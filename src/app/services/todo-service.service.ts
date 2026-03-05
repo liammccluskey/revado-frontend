@@ -84,7 +84,7 @@ export class TodoService {
     )
   }
 
-  patchTodo(todoRequest: TodoRequest, todoId: number): Observable<Todo> {
+  patchTodo(todoRequest: Partial<TodoRequest>, todoId: number): Observable<Todo> {
     return this.api.patch<Todo>(`todos/${todoId}`, todoRequest).pipe(
       tap(todo => {
         this.todos.set(this.todos().map(t => 
@@ -134,7 +134,7 @@ export class TodoService {
     )
   }
 
-  patchSubtask(subtaskRequest: SubtaskRequest, subtaskId: number): Observable<Todo> {
+  patchSubtask(subtaskRequest: Partial<SubtaskRequest>, subtaskId: number): Observable<Todo> {
     return this.api.patch<Todo>(`subtasks/${subtaskId}`, subtaskRequest).pipe(
       tap(todo => {
         this.todos.set(this.todos().map(t => 

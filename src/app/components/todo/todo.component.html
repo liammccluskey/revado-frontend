@@ -1,38 +1,65 @@
 <div class="todo-container">
     <div class="todo-header">
-        <div class="header-left">
+        <div class="header-left" [ngStyle]="{flex: editingTodo() ? 0.5 : 0}">
             <input 
                 type="checkbox" 
-                [checked]="completed()"
-                (change)="completed.set($any($event.target).checked)"
+                [checked]="todo().completed"
+                (change)="onChangeTodoCompleted($any($event.target).checked)"
             />
-            <h4>{{todo().title}}</h4>
+            @if (editingTodo()) {
+                <input type="text" [(ngModel)]="todoTitle" [ngStyle]="{width: '100%'}"/>
+            } @else {
+                <h4>{{todo().title}}</h4>
+            }
         </div>
-        <div class="header-right">
-            <app-button
-                [title]="'Edit'"
-                [color]="'clear'"
-                [size]="'small'"
-                (onClick)="onClickEditTodo()"
-                [ngStyle]="{marginRight: '5px'}"
-            />
-            <app-button
-                [title]="'+ Add subtask'"
-                [color]="'clear'"
-                [size]="'small'"
-                (onClick)="onClickAddSubtask()"
-                [ngStyle]="{marginRight: '5px'}"
-            />
-            <app-button
-                [title]="'Delete'"
-                [color]="'clear'"
-                [size]="'small'"
-                (onClick)="onClickDeleteTodo()"
-            />
-        </div>
+        @if (!editingTodo()) {
+            <div class="header-right">
+                <app-button
+                    [title]="'Edit'"
+                    [color]="'clear'"
+                    [size]="'small'"
+                    (onClick)="onClickEditTodo()"
+                    [ngStyle]="{marginRight: '5px'}"
+                />
+                <app-button
+                    [title]="'+ Add subtask'"
+                    [color]="'clear'"
+                    [size]="'small'"
+                    (onClick)="onClickAddSubtask()"
+                    [ngStyle]="{marginRight: '5px'}"
+                />
+                <app-button
+                    [title]="'Delete'"
+                    [color]="'clear'"
+                    [size]="'small'"
+                    (onClick)="onClickDeleteTodo()"
+                />
+            </div>
+        } @else {
+            <div class="header-right">
+                <app-button
+                    [title]="'Cancel'"
+                    [color]="'clear'"
+                    [size]="'small'"
+                    (onClick)="onClickCancelEditTodo()"
+                    [ngStyle]="{marginRight: '5px'}"
+                />
+                <app-button
+                    [title]="'Save'"
+                    [color]="'solid'"
+                    [size]="'small'"
+                    (onClick)="onClickSaveEdits()"
+                />
+            </div>
+        }
+        
 
     </div>
-    <p>{{todo().description}}</p>
+    @if (editingTodo()) {
+        <textarea rows="3" [(ngModel)]="todoDescription"></textarea>
+    } @else {
+        <p>{{todo().description}}</p>
+    }
     @if (addingSubtask()) {
         <div class="add-subtask-container">
             <h4 [ngStyle]="{marginBottom: '10px'}">Add subtask</h4>
@@ -60,29 +87,51 @@
         <div class="subtasks-container">
             @for (subtask of todo().subtasks; track subtask.id) {
                 <div class="subtask-container">
-                    <div class="subtask-left-container">
+                    <div class="subtask-left-container" [ngStyle]="{flex: editingSubtaskId == subtask.id ? 0.5 : 0}">
                         <input 
                             type="checkbox" 
                             [checked]="subtask.completed"
-                            (change)="completed.set($any($event.target).checked)"
+                            (change)="onChangeSubtaskCompleted(subtask.id, $any($event.target).checked)"
                         />
-                        <h4>{{subtask.description}}</h4>
+                        @if (editingSubtaskId == subtask.id) {
+                            <input type="text" [(ngModel)]="editingSubtaskTitle" [ngStyle]="{width: '100%'}"/>
+                        } @else {
+                            <p>{{subtask.description}}</p>
+                        }
                     </div>
-                    <div class="subtask-right-container">
-                        <app-button
-                            [title]="'Edit'"
-                            [color]="'clear'"
-                            [size]="'small'"
-                            (onClick)="onClickEditSubtask(subtask.id)"
-                            [ngStyle]="{marginRight: '5px'}"
-                        />
-                        <app-button
-                            [title]="'Delete'"
-                            [color]="'clear'"
-                            [size]="'small'"
-                            (onClick)="onClickDeleteSubtask(subtask.id)"
-                        />
-                    </div>
+                    @if (editingSubtaskId == subtask.id) {
+                        <div class="subtask-right-container">
+                            <app-button
+                                [title]="'Cancel'"
+                                [color]="'clear'"
+                                [size]="'small'"
+                                (onClick)="onClickCancelEditSubtask()"
+                                [ngStyle]="{marginRight: '5px'}"
+                            />
+                            <app-button
+                                [title]="'Save'"
+                                [color]="'solid'"
+                                [size]="'small'"
+                                (onClick)="onClickSaveSubtaskEdits()"
+                            />
+                        </div>
+                    } @else {
+                        <div class="subtask-right-container">
+                            <app-button
+                                [title]="'Edit'"
+                                [color]="'clear'"
+                                [size]="'small'"
+                                (onClick)="onClickEditSubtask(subtask.id)"
+                                [ngStyle]="{marginRight: '5px'}"
+                            />
+                            <app-button
+                                [title]="'Delete'"
+                                [color]="'clear'"
+                                [size]="'small'"
+                                (onClick)="onClickDeleteSubtask(subtask.id)"
+                            />
+                        </div>
+                    }
                 </div>
             }
         </div>
