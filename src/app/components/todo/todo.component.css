@@ -7,6 +7,10 @@
     padding: 15px;
 }
 
+.last-todo {
+    border-bottom: none;
+}
+
 .todo-header {
     display: flex;
     flex-direction: row;
@@ -56,5 +60,9 @@
 .subtask-left-container, .subtask-right-container {
     display: flex;
     align-items: center;
+}
+
+.last-subtask {
+    border-bottom: none;
 }
 

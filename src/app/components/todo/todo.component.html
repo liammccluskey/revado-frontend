@@ -1,4 +1,4 @@
-<div class="todo-container">
+<div [ngClass]="['todo-container', isLast() ? 'last-todo' : '']">
     <div class="todo-header">
         <div class="header-left" [ngStyle]="{flex: editingTodo() ? 0.5 : 0}">
             <input 
@@ -85,8 +85,8 @@
     }
     @if (todo().subtasks.length) {
         <div class="subtasks-container">
-            @for (subtask of todo().subtasks; track subtask.id) {
-                <div class="subtask-container">
+            @for (subtask of todo().subtasks; track subtask.id; let isLast = $last) {
+                <div [ngClass]="['subtask-container', isLast ? 'last-subtask' : '']">
                     <div class="subtask-left-container" [ngStyle]="{flex: editingSubtaskId == subtask.id ? 0.5 : 0}">
                         <input 
                             type="checkbox" 

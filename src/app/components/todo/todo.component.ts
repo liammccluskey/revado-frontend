@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TodoComponent implements OnInit {
   todo = input.required<Todo>();
+  isLast = input<boolean>();
   todoService = inject(TodoService);
 
   editingTodo = signal<boolean>(false);

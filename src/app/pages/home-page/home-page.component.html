@@ -39,8 +39,8 @@
             </div>
         }
         <div class="todos-container">
-            @for (todo of todos(); track todo.id) {
-                <app-todo [todo]="todo" />
+            @for (todo of todos(); track todo.id; let isLast = $last) {
+                <app-todo [todo]="todo" [isLast]="isLast"/>
             }
         </div>
     </app-body-container>
