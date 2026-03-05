@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, effect} from '@angular/core';
 import { ApiService } from './api-service.service';
 import { AuthService } from './auth-service.service';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
@@ -45,7 +45,15 @@ export class TodoService {
   loadingPostTodo = signal<boolean>(false);
 
   constructor() {
-    this.fetchTodos().subscribe();
+    effect(() => {
+      const token = this.auth.token();
+
+      if (token) {
+        this.fetchTodos().subscribe();
+      } else {
+        this.todos.set([])
+      }
+    })
   }
 
   // Todos

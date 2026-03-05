@@ -30,7 +30,7 @@ export interface User {
 export class AuthService {
   private api = inject(ApiService);
   private router = inject(Router);
-  private token = signal<string | null>(localStorage.getItem('jwt') || null);
+  token = signal<string | null>(localStorage.getItem('jwt') || null);
   private currentUser = signal<User | null>(null);
 
   constructor() {
