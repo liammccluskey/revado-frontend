@@ -40,9 +40,9 @@ export class LoginPageComponent {
   }
 
   onChangeEmail(value: string) {
-  this.email.set(value);
-  this.loginError.set(undefined);
-}
+    this.email.set(value);
+    this.loginError.set(undefined);
+  }
 
   onChangePassword(value: string) {
     this.password.set(value);

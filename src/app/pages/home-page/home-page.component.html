@@ -10,6 +10,38 @@
                 (onClick)="onClickCreateTodo()"
             />
         </div>
-        
+        @if (addingTodo()) {
+            <div class="create-todo-container">
+                <h3 [ngStyle]="{marginBottom: '15px'}">Create todo</h3>
+                <label>Title</label>
+                <input type="text" [(ngModel)]="todoTitle" />
+                <br/>
+                <label>Description</label>
+                <textarea [(ngModel)]="todoDescription" rows="3"></textarea>
+                <br/>
+                <div class="buttons-container">
+                    <app-button
+                        [title]="'Cancel'"
+                        [color]="'clear'"
+                        [size]="'medium'"
+                        (onClick)="onClickCancelCreateTodo()"
+                        [ngStyle]="{alignSelf: 'flex-end', marginRight: '15px'}"
+                    />
+                    <app-button
+                        [title]="'Save'"
+                        [color]="'solid'"
+                        [size]="'medium'"
+                        (onClick)="onClickSaveTodo()"
+                        [ngStyle]="{alignSelf: 'flex-end'}"
+                        [disabled]="loadingPostTodos()"
+                    />
+                </div>
+            </div>
+        }
+        <div class="todos-container">
+            @for (todo of todos(); track todo.id) {
+                <app-todo [todo]="todo" />
+            }
+        </div>
     </app-body-container>
 </app-page-container>

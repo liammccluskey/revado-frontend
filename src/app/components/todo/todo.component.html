@@ -1,19 +1,27 @@
 <div class="todo-container">
     <div class="todo-header">
-        <div class="header-right">
+        <div class="header-left">
             <input 
                 type="checkbox" 
                 [checked]="completed()"
                 (change)="completed.set($any($event.target).checked)"
             />
-            <h3>{{todo().title}}</h3>
+            <h4>{{todo().title}}</h4>
         </div>
-        <div class="header-left">
+        <div class="header-right">
             <app-button
                 [title]="'Edit'"
                 [color]="'clear'"
                 [size]="'small'"
                 (onClick)="onClickEditTodo()"
+                [ngStyle]="{marginRight: '5px'}"
+            />
+            <app-button
+                [title]="'+ Add subtask'"
+                [color]="'clear'"
+                [size]="'small'"
+                (onClick)="onClickAddSubtask()"
+                [ngStyle]="{marginRight: '5px'}"
             />
             <app-button
                 [title]="'Delete'"
@@ -24,4 +32,59 @@
         </div>
 
     </div>
+    <p>{{todo().description}}</p>
+    @if (addingSubtask()) {
+        <div class="add-subtask-container">
+            <h4 [ngStyle]="{marginBottom: '10px'}">Add subtask</h4>
+            <label>Title</label>
+            <input type="text" [(ngModel)]="subtaskTitle" />
+            <br />
+            <div class="buttons-container">
+                <app-button
+                    [title]="'Cancel'"
+                    [color]="'clear'"
+                    [size]="'small'"
+                    (onClick)="onClickCancelAddSubtask()"
+                    [ngStyle]="{marginRight: '10px'}"
+                />
+                <app-button
+                    [title]="'Save'"
+                    [color]="'solid'"
+                    [size]="'small'"
+                    (onClick)="onClickSaveSubtask()"
+                />
+            </div>
+        </div>
+    }
+    @if (todo().subtasks.length) {
+        <div class="subtasks-container">
+            @for (subtask of todo().subtasks; track subtask.id) {
+                <div class="subtask-container">
+                    <div class="subtask-left-container">
+                        <input 
+                            type="checkbox" 
+                            [checked]="subtask.completed"
+                            (change)="completed.set($any($event.target).checked)"
+                        />
+                        <h4>{{subtask.description}}</h4>
+                    </div>
+                    <div class="subtask-right-container">
+                        <app-button
+                            [title]="'Edit'"
+                            [color]="'clear'"
+                            [size]="'small'"
+                            (onClick)="onClickEditSubtask(subtask.id)"
+                            [ngStyle]="{marginRight: '5px'}"
+                        />
+                        <app-button
+                            [title]="'Delete'"
+                            [color]="'clear'"
+                            [size]="'small'"
+                            (onClick)="onClickDeleteSubtask(subtask.id)"
+                        />
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>

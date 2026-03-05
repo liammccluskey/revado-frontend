@@ -3,4 +3,38 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.create-todo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: var(--bgc-light);
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--br-container);
+    margin-bottom: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+textarea {
+    resize: none;
+}
+
+.todos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    border-radius: var(--br-container);
+    background-color: var(--bgc-light);
+    border: 1px solid var(--border-color);
 }

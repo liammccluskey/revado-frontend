@@ -5,12 +5,12 @@ import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 
 export interface Subtask {
   id: number;
-  title: string;
+  description: string;
   completed: boolean;
 }
 
 export interface SubtaskRequest {
-  title: string;
+  description: string;
   completed: boolean;
 }
 
@@ -43,6 +43,10 @@ export class TodoService {
   todos = signal<Todo[]>([]);
   loadingTodos = signal<boolean>(true);
   loadingPostTodo = signal<boolean>(false);
+
+  constructor() {
+    this.fetchTodos().subscribe();
+  }
 
   // Todos
 
@@ -146,7 +150,7 @@ export class TodoService {
   }
 
   deleteSubtask(subtaskId: number, todoId: number): Observable<SuccessResponse> {
-    return this.api.delete<SuccessResponse>(`todos/${todoId}`).pipe(
+    return this.api.delete<SuccessResponse>(`subtasks/${subtaskId}`).pipe(
       tap(res => {
         console.log(res.message)
         this.todos.set(this.todos().map(t => 

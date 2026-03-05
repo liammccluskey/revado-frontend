@@ -14,9 +14,10 @@ export class ButtonComponent {
   title = input<string>();
   color = input<ButtonColor>();
   size = input<ButtonSize>();
+  disabled = input<boolean>(false);
   onClick = output<void>();
 
   handleClick() {
-    this.onClick.emit();
+    if (!this.disabled()) this.onClick.emit();
   }
 }
